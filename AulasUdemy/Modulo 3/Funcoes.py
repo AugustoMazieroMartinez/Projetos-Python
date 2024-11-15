@@ -25,12 +25,21 @@
 #     return x * 3
 # def quad(x):
 #     return x * 4
-def mult(x):
-    def multiplica(y):
-        return y * x
-    return multiplica
-duplicar = mult(2)
-triplicar = mult(3)
-quad = mult(4)
-x = 5
-print(duplicar(x), triplicar(x), quad(x))
+# def mult(x):
+#     def multiplica(y):
+#         return y * x
+#     return multiplica
+# duplicar = mult(2)
+# triplicar = mult(3)
+# quad = mult(4)
+# x = 5
+# print(duplicar(x), triplicar(x), quad(x))
+x, y = 1, 2
+
+def soma(*args):
+    z = 0
+    for numero in args:
+        z += numero
+    return z
+
+print(soma(1,2,3,4,5,6,7,8,9,10))
