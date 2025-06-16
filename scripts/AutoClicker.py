@@ -8,6 +8,7 @@ from pynput.keyboard import Listener, KeyCode, Key
 
 delay = 0.001
 button = Button.left
+key = KeyCode.from_char('a')
 
 class ClickMouse(threading.Thread):
     def __init__(self, delay, button):
@@ -32,7 +33,28 @@ class ClickMouse(threading.Thread):
                 mouse.click(self.button)
                 time.sleep(self.delay)
             time.sleep(0.1)
-            
+class ClickKey(threading.Thread):
+    def __init__(self, key):
+        super(ClickKey, self).__init__()
+        self.key = key
+        self.delay = delay
+        self.running = False
+        self.program_running = True
+    def start_clicking(self):
+        self.running = True
+    def stop_clicking(self):
+        self.running = False
+    def exit(self):
+        self.stop_clicking()
+        self.program_running = False
+    def run(self):
+        while self.program_running:
+            while self.running:
+                with pynput.keyboard.Controller() as keyboard:
+                    keyboard.press(self.key)
+                    time.sleep(self.delay)
+                    keyboard.release(self.key)
+            time.sleep(0.1)
             
 class SafeKeyCode(object):
     def __getattr__(self, name):
@@ -50,8 +72,13 @@ class BaseKeySymbols(object):
 start_stop_key = BaseKeySymbols().CAPS_LOCK
 stop_key = BaseKeySymbols().CAPS_LOCK
 mouse = Controller()
+keyboard = pynput.keyboard.Controller()
 click_thread = ClickMouse(delay, button)
 click_thread.start()
+keyboard_thread = ClickKey(key)
+keyboard_thread.start()
+
+
 def on_press(key): 
     
     if key == start_stop_key: 

@@ -1,8 +1,6 @@
-import openpyxl as px
+import pandas as pd
 
-wb = px.load_workbook('videogamesales.xlsx')
-ws = wb.active
-ws = wb['vgsales']
+df = pd.DataFrame(pd.read_excel('videogamesales.xlsx'))
 
-# print('Total number of rows: ' + str(ws.max_row) + "\nTotal number of columns:" + str(ws.max_column))  
-print('The value in cell A1 is: ' + str(ws['c1'].value))
+count = df['Platform'].value_counts().head(10)
+print(count)
