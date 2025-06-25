@@ -1,21 +1,21 @@
 from tkinter import *
 from openpyxl import load_workbook  
 
-wb = load_workbook('C:Users/augus/Documents/Projetos VSCode/Projetos Python/TKinter/Projetos/Registration_Form/Registration_Form.xlsx')
+wb = load_workbook('C:\\Users\\augus\\Documents\\Projetos VSCode\\Projetos Python\\Projetos\\TKinter\\Registration_Form\\excel.xlsx')
 ws = wb.active
 
 def init_excel():
     headers = ["Name", "Course", "Semester", "Form No.", "Contact No.", "Email", "Address"]
     for i, h in enumerate(headers, 1):
         ws.cell(row=1, column=i).value = h
-    wb.save('C:/Users/augus/Documents/Projetos VSCode/Projetos Python/TKinter/Projetos/Registration_Form/Registration_Form.xlsx')
+    wb.save('C:\\Users\\augus\\Documents\\Projetos VSCode\\Projetos Python\\Projetos\\TKinter\\Registration_Form\\excel.xlsx')
 
 def insert_data():
     if all(f.get() for f in entries):
         row = ws.max_row + 1
         for i, f in enumerate(entries,1):
             ws.cell(row=row, column=i).value = f.get()
-        wb.save('C:/Users/augus/Documents/Projetos VSCode/Projetos Python/TKinter/Projetos/Registration_Form/Registration_Form.xlsx')
+        wb.save('C:\\Users\\augus\\Documents\\Projetos VSCode\\Projetos Python\\Projetos\\TKinter\\Registration_Form\\excel.xlsx')
         clear_fields()
     else:
         print("Please fill all fields")
